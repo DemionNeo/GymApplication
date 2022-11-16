@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.body2baby.Adapter.UsersAdapter;
 import com.example.body2baby.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,6 +30,9 @@ public class FriendsActivity extends AppCompatActivity {
     private UsersAdapter usersAdapter;
     UsersAdapter.OnUserClickListener onUserClickListener;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    String myImageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +41,25 @@ public class FriendsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         users = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler);
+        swipeRefreshLayout = findViewById(R.id.swipeLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getUsers();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         onUserClickListener = new UsersAdapter.OnUserClickListener() {
             @Override
             public void onUserClicked(int position) {
-                Toast.makeText(FriendsActivity.this, "Tapped on user"+users.get(position).getName(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FriendsActivity.this,MessageActivity.class)
+                        .putExtra("Full_name_of_roommate",users.get(position).getName())
+                        .putExtra("email_of_roommate",users.get(position).getEmail())
+                        .putExtra("image_of_roommate",users.get(position).getProfilepictureurl())
+                        .putExtra("my_img",myImageUrl)
+                );
             }
         };
 
@@ -47,6 +67,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void getUsers(){
+        users.clear();
         FirebaseDatabase.getInstance().getReference("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,6 +79,13 @@ public class FriendsActivity extends AppCompatActivity {
                 recyclerView.setAdapter(usersAdapter);
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+
+                for (User user : users){
+                    if(user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                        myImageUrl = user.getProfilepictureurl();
+                        return;
+                    }
+                }
             }
 
             @Override
