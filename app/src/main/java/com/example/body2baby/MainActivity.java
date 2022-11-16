@@ -257,6 +257,12 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.notifications:
+                Intent intent6 = new Intent(MainActivity.this,FriendsActivity.class);
+                startActivity(intent6);
+                break;
+
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
