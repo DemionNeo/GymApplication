@@ -45,6 +45,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
     holder.txtname.setText(users.get(position).getName());
+    holder.txttype.setText(users.get(position).getType());
         Glide.with(context).load(users.get(position).getProfilepictureurl()).error(R.drawable.applogo).placeholder(R.drawable.applogo).into(holder.imageView);
 
 
@@ -58,6 +59,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
     class UserHolder extends RecyclerView.ViewHolder{
         TextView txtname;
         ImageView imageView;
+        TextView txttype;
 
         public UserHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +72,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
             });
 
             txtname = itemView.findViewById(R.id.txtname);
+            txttype = itemView.findViewById(R.id.txttype);
             imageView = itemView.findViewById(R.id.img_pro);
         }
     }

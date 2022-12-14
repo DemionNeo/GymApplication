@@ -1,13 +1,13 @@
 package com.example.body2baby.Model;
 
 public class User {
-    String name, trimester, id, email, idnumber, phonenumber,profilepictureurl,search,type;
+    String name, trimester, id, email, idnumber, phonenumber,profilepictureurl,search,type,workout,workout1,workout2,workout3,description,workoutpictureurl;
 
     public User() {
     }
 
 
-    public User(String name, String trimester, String id, String email, String idnumber, String phonenumber, String profilepictureurl, String search, String type) {
+    public User(String name, String trimester, String id, String email, String idnumber, String phonenumber, String profilepictureurl, String search, String type, String workout, String workout1, String workout2, String workout3, String description, String workoutpictureurl) {
         this.name = name;
         this.trimester = trimester;
         this.id = id;
@@ -17,6 +17,13 @@ public class User {
         this.profilepictureurl = profilepictureurl;
         this.search = search;
         this.type = type;
+        this.workout = workout;
+        this.workout1 = workout1;
+        this.workout2 = workout2;
+        this.workout3 = workout3;
+        this.description = description;
+        this.workoutpictureurl = workoutpictureurl;
+
     }
 
     public String getName() {
@@ -89,5 +96,53 @@ public class User {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(String workout) {
+        this.workout = workout;
+    }
+
+    public String getWorkout1() {
+        return workout1;
+    }
+
+    public void setWorkout1(String workout1) {
+        this.workout1 = workout1;
+    }
+
+    public String getWorkout2() {
+        return workout2;
+    }
+
+    public void setWorkout2(String workout2) {
+        this.workout2 = workout2;
+    }
+
+    public String getWorkout3() {
+        return workout3;
+    }
+
+    public void setWorkout3(String workout3) {
+        this.workout3 = workout3;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getWorkoutpictureurl() {
+        return workoutpictureurl;
+    }
+
+    public void setWorkoutpictureurl(String workoutpictureurl) {
+        this.workoutpictureurl = workoutpictureurl;
     }
 }

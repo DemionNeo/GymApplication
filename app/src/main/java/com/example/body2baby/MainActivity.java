@@ -31,6 +31,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public DrawerLayout drawerLayout;
-//    private Toolbar toolbar;
+    private Toolbar toolbar;
     private NavigationView nav_view;
 
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -59,9 +60,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Gym Yoga App");
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Gym Yoga App");
 
         nav_view = findViewById(R.id.nav_view);
 
@@ -88,6 +89,26 @@ public class MainActivity extends AppCompatActivity
 
         recyclerView.setAdapter(userAdapter);
         //Display users.
+        DatabaseReference refe = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        refe.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String type = snapshot.child("type").getValue().toString();
+                if (type.equals("trainee")){
+                    nav_view.getMenu().findItem(R.id.addWorkouts).setVisible(false);
+                    nav_view.getMenu().findItem(R.id.seeWorkouts).setVisible(false);
+                }else{
+                    nav_view.getMenu().findItem(R.id.addWorkouts).setVisible(true);
+                    nav_view.getMenu().findItem(R.id.seeWorkouts).setVisible(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.addValueEventListener(new ValueEventListener() {
@@ -165,7 +186,7 @@ public class MainActivity extends AppCompatActivity
                 userList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-                    userList.add(user);
+                         userList.add(user);
                 }
                 userAdapter.notifyDataSetChanged();
                 progressbar.setVisibility(View.GONE);
@@ -229,6 +250,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
 
+            case R.id.addWorkouts:
+                Intent intent7 = new Intent(MainActivity.this, WorkoutsActivity.class);
+                startActivity(intent7);
+                break;
+
+            case R.id.seeWorkouts:
+                Intent intent10 = new Intent(MainActivity.this, WorkoutPageViewActivity.class);
+                startActivity(intent10);
+                break;
+
             case R.id.firsttrimester:
                 Intent intent2 = new Intent(MainActivity.this, CategorySelectedActivity.class);
                 intent2.putExtra("group","First Trimester");
@@ -258,7 +289,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
 
-            case R.id.notifications:
+            case R.id.sentEmail:
                 Intent intent6 = new Intent(MainActivity.this,FriendsActivity.class);
                 startActivity(intent6);
                 break;

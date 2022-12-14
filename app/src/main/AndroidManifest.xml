@@ -14,8 +14,18 @@
         android:theme="@style/Theme.Body2Baby"
         tools:targetApi="31">
         <activity
+            android:name=".WorkoutPageViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutpageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MessageActivity"
-            android:exported="false" android:theme="@style/StyleWithoutToolbar"></activity>
+            android:exported="false"
+            android:theme="@style/StyleWithoutToolbar" />
         <activity
             android:name=".FriendsActivity"
             android:exported="false" />
@@ -27,7 +37,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/StyleWithoutToolbar" />
         <activity
             android:name=".TraineeRegistrationActivity"
             android:exported="false" />
