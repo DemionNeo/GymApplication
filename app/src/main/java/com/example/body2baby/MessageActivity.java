@@ -34,7 +34,7 @@ public class MessageActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private ArrayList<Message> messages;
 
-    String usernameOfTheRoommate, emailOfRoommate, chatRoomId;
+    String usernameOfTheRoommate, emailOfRoommate, chatRoomId, typeOfUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class MessageActivity extends AppCompatActivity {
 
         usernameOfTheRoommate = getIntent().getStringExtra("Full_name_of_roommate");
         emailOfRoommate = getIntent().getStringExtra("email_of_roommate");
+        typeOfUser = getIntent().getStringExtra("type_of_user");
 
         recyclerMessages = findViewById(R.id.recyclerMessages);
         imgSend = findViewById(R.id.imgSendMessage);

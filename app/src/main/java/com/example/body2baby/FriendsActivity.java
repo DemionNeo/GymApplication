@@ -57,6 +57,7 @@ public class FriendsActivity extends AppCompatActivity {
                 startActivity(new Intent(FriendsActivity.this,MessageActivity.class)
                         .putExtra("Full_name_of_roommate",users.get(position).getName())
                         .putExtra("email_of_roommate",users.get(position).getEmail())
+                        .putExtra("type_of_user",users.get(position).getType())
                         .putExtra("image_of_roommate",users.get(position).getProfilepictureurl())
                         .putExtra("my_img",myImageUrl)
                 );

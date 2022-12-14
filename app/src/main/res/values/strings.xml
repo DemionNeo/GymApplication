@@ -4,6 +4,20 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string-array name="workouts">
+        <item>Select the required Workout</item>
+        <item>Standing Abs</item>
+        <item>Pelvis Articulation</item>
+        <item>Butt Press</item>
+        <item>Step Back</item>
+        <item>Stagger Row</item>
+        <item>Rotating Stagger</item>
+        <item>Fire Hydrant</item>
+        <item>Kneeling Hip Flexor Stretch</item>
+        <item>Hamstring Press</item>
+
+    </string-array>
+
     <string-array name="trimesters">
         <item>Select your Trimester</item>
         <item>First Trimester</item>

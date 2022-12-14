@@ -1,6 +1,7 @@
 package com.example.body2baby.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.body2baby.MainActivity;
 import com.example.body2baby.Model.User;
 import com.example.body2baby.R;
+import com.example.body2baby.WorkoutpageActivity;
 
 import java.util.List;
 
@@ -47,12 +50,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         if (user.getType().equals("trainer")){
             holder.emailNow.setVisibility(View.VISIBLE);
         }
+
         holder.userEmail.setText(user.getEmail());
         holder.phoneNumber.setText(user.getPhonenumber());
         holder.userName.setText(user.getName());
         holder.userTrimester.setText(user.getTrimester());
 
         Glide.with(context).load(user.getProfilepictureurl()).into(holder.userProfileImage);
+
+        holder.emailNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(context, WorkoutpageActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override
